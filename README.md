@@ -52,7 +52,7 @@ If you are able to compile your code successfully you should see something like 
 
 # Solution
 ## Understanding
-Describe what you understood about the problem.
+The main task given here was the help a rover move from a start point to a goal point using GPS data that comes in a UBX format. I had to decode to find the latitude and longitude for the start and goal positions. Then I had to create a path ona  grid map and figure out how the rover should move with respect to time to follow the path. The code tells us to decode GPS at ``ublox_reader.cpp ``, plan a path at ``planning.cpp`` and making movement commands in ``odometry.cpp``. I also had to compile and test it with ``make build`` and ``make check``.
 
 ## Thought Process
 After understanding the problem, describe how you decided to proceed towards solving the question.
@@ -70,3 +70,4 @@ Mention the details, such as the path planning & odometry how you tested it.
   <img src="https://github.com/teamrudra/r25-test/blob/main/datasheets/feynman-simple.jpg" width="600" height="600"/>
 </p>
      
+
