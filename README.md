@@ -15,8 +15,8 @@ I split the task into simple steps to make it easier for me to think
 For Task 1, I needed to fix the GPS decoding code to read UBX data correctly. I planned to check the u-blox datasheet to understand the NAV-POSLLH message format. For Task 2, I thought about using a pathfinding algorithm like A* to find a route on the grid. For Task 3, I wanted to calculate movement commands based on the path. Task 4 was about compiling and testing. I knew I’d need to use AI tools, internet search and the datasheet for help, but I took a while to understand the coding details
 
 ## Implementation
-# TASK 1
-Tried to fix ``ublox_reader.cpp`` to decode UBX NAV-POSLLH messages. I pasted the code in ChatGPT to check for the mistakes that might occur in code and found some. Fixed those errors and went to run the code.
+# Task 1
+Tried to fix ``ublox_reader.cpp`` to decode ``UBX NAV-POSLLH`` messages. I pasted the code in ChatGPT to check for the mistakes that might occur in code and found some. Fixed those errors and went to run the code.
 I Looked at the code and saw it reads a file with hex strings, converts to bytesand extracts latitude and longitude. Noticed ``NAV_POSLLH`` had wrong offsets and ``decodeUBX`` had wrong bytes .
 I didn’t fully understand C++ byte handling or UBX format. Tried reading the datasheet (provided link) but got confused by byte offsets and checksums. I couldn’t fix the code properly due to limited coding knowledge.
 # Task 2
