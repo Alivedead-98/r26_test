@@ -1,73 +1,35 @@
 # R26_test
-
-<p align="center">
-  <img src="https://github.com/teamrudra/r26_test/blob/main/misc/rover.webp" width="480" height="480"/>
-
-#### Some Instructions
-1. You may use any online resources, datasheets, or documentation needed, but be mindful of your time and stay focused on the task.
-2. The duration of the test is 90 mins from 5:15pm to 6:45 pm.
-3. There will be a MCQ test conducted [here](https://rudra26test.vercel.app/)
-4. There are 4 tasks in the tests. Complete all of them.
-5. In case you are not able to complete all the tasks, do upload whatever you are able to.
-6. In the `README.md` of your repository include your thought process, places where you got stuck, where you used the help of AI, google or other online resources.
-7. Even if you are not able to solve anything, do fill the readme and what your thought process would have been.
-8. Carefully read the instructions to implement the required functionality.
-9. Install [mingw(c compiler)](https://www.mingw-w64.org/downloads/#w64devkit) and [git](https://git-scm.com/downloads) if you haven't already done it.
-10. After finishing your test, provide the link to your forked repository in the google form provided at the end.
-
-### Aim/Objective: To decode GPS data of start and goal position, and create a path planning algorithm which computes an optimal path over a predefined gridmap
-
-## Description
-You are implementing code to decode GPS position data, received from a u-blox GNSS module on-board a rover (check out the [datasheet](https://drive.google.com/file/d/1rOcPxpP-3JE8l39kBMiQV6KKe8B6zlDf/view)). You are given the current/start position of the rover and the goal position where the rover has to reach, your goal is to develop a path planning algorithm to traverse over a pre-defined gridmap and generate necessary odometry commands (total time & angle traversed) to guide the rover along the generated path. 
-
-### Task 0: Fork the provided repository and ensure it is set to PUBLIC so we can access and assess your work.
-### Task 1: Decoding gps data (in ubx format) from u-blox reciever.
-Working with UBX format and extracted relevant navigation data for use in the planner.
-### Task 2: Develop a path planning algorithm to traverse over a gridmap.
-Implemented a grid-based path planner that computes an optimal route from start to goal.
-### Task 3: Generate odometry commands to guide the rover along the generated path.
-Converted the path into motion commands (direction and timing) based on wheel parameters.
-### Task 4: Compile and run the code.
-Verified the workflow on sample inputs and ensured the project compiles successfully with g++.
-
-#### Code
-1. [src/main.cpp](src/main.cpp): Code for running the test.
-2. [src/ublox_reader.cpp](src/ublox_reader.cpp): Recitfy errors in this code to compute correct lat & lon coordinates.
-3. [src/planning.cpp](src/planning.cpp): Complete the defined `Planner::pathplanning` function 
-4. [src/odometry.cpp](src/odometry.cpp): Complete the defined `Odometry::computeCommands` function 
-
-#### How to Compile & Check your code
-(make sure you are in the root directory)   
-1. Compile your code by running: `make build`
-2. To check if your code is implemented correctly run: `make check`
-   
-If you are able to compile your code successfully you should see something like this on your screen:
-
-```
-*** Success: ***
---------------------------------------------
-```
-
-4. If your make check was unsuccesfull, you can clean your attempt by running `make clean`, review your implementation and repeat the previous steps.
-
+RA2511033010143
 # Solution
 ## Understanding
 The main task given here was the help a rover move from a start point to a goal point using GPS data that comes in a UBX format. I had to decode to find the latitude and longitude for the start and goal positions. Then I had to create a path ona  grid map and figure out how the rover should move with respect to time to follow the path. The code tells us to decode GPS at ``ublox_reader.cpp ``, plan a path at ``planning.cpp`` and making movement commands in ``odometry.cpp``. I also had to compile and test it with ``make build`` and ``make check``.
 
 ## Thought Process
-After understanding the problem, describe how you decided to proceed towards solving the question.
+I split the task into simple steps to make it easier for me to think
+
+1. **Read GPS Data** → take UBX GPS data and turn it into latitude, longitude, and height.  
+2. **Make a Grid Map** → change GPS points into a local grid and mark where obstacles are.  
+3. **Plan the Path** → run the A* algorithm on the grid to find a route from the start to the goal.  
+4. **Rover Movement** → turn the path into commands for the rover, figuring out the time and turning angle using wheel size and RPM.
+   
+For Task 1, I needed to fix the GPS decoding code to read UBX data correctly. I planned to check the u-blox datasheet to understand the NAV-POSLLH message format. For Task 2, I thought about using a pathfinding algorithm like A* to find a route on the grid. For Task 3, I wanted to calculate movement commands based on the path. Task 4 was about compiling and testing. I knew I’d need to use AI tools, internet search and the datasheet for help, but I took a while to understand the coding details
 
 ## Implementation
-How did you decide to implement your solution.
+# TASK 1
+Tried to fix ``ublox_reader.cpp`` to decode UBX NAV-POSLLH messages. I pasted the code in ChatGPT to check for the mistakes that might occur in code and found some. Fixed those errors and went to run the code.
+I Looked at the code and saw it reads a file with hex strings, converts to bytesand extracts latitude and longitude. Noticed ``NAV_POSLLH`` had wrong offsets and ``decodeUBX`` had wrong bytes .
+I didn’t fully understand C++ byte handling or UBX format. Tried reading the datasheet (provided link) but got confused by byte offsets and checksums. I couldn’t fix the code properly due to limited coding knowledge.
+# Task 2
+I planned to implement A* algorithm in ``planning.cpp`` for finding a path on a grid. The starting coordinates were taken as origin (0,0) on the grid map. I googled “A* pathfinding C++” for ideas. Understood that Understood A* uses a grid (0 = free, 1 = obstacle) and a priority queue.
+# Task 3
+I had planned to write commands on ``odometry.cpp`` to calculate time and angles of the rover's path. I understood that it involved formulas for distance and angles. Searched for potential mathematical formulas that could be used here.
+# Task 4
+Planned on trying to compile ``make build`` and test using ``make test`` but couldn't do so due to unfinished code.
 
-Mention the details, such as the path planning & odometry how you tested it.
 
-# Google Form
-[Link to Repo Submission](https://docs.google.com/forms/d/e/1FAIpQLSdlVJ2LzP8wUOATRD804zDVL611rwwGMO1y_ecYu5aoV5YQfw/viewform)
+## Final thoughts
+This test was a big challenge for me because i’m sti;; new to coding, especially in C++. I felt overwhelmed by the technical details like UBX message parsing and pathfinding algorithms, but I gave it my best shot.
+Even tho i struggled understanding and finishing the task, I definitly learnt many new things about how GPS data works and what path planning involves. I am looking forward to learn new things and improve myself. 
+I appreciate the opportunity i claimed and i’ll keep working to improve my skills for future challenges! Thank you!
 
-
-<p align="center">
-  <img src="https://github.com/teamrudra/r25-test/blob/main/datasheets/feynman-simple.jpg" width="600" height="600"/>
-</p>
-     
 
